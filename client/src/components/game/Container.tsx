@@ -71,7 +71,7 @@ const Container = ({ type }: ContainerProps) => {
         </h3>
       </div>
       
-      <div className="grid grid-cols-2 gap-2 p-1">
+      <div className="grid grid-cols-2 gap-1 p-1">
         {ingredients.map((ingredient: Ingredient) => (
           <DraggableIngredient 
             key={ingredient.id} 

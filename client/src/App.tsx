@@ -41,7 +41,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <DndProvider backend={HTML5Backend}>
-        <div className="h-screen w-screen overflow-hidden bg-indigo-50 font-sans">
+        <div className="min-h-screen w-screen overflow-auto bg-indigo-50 font-sans">
           <GameArea />
           <Toaster position="top-center" />
         </div>

@@ -63,7 +63,7 @@ const GameArea = () => {
   const experienceBarWidth = `${(experience / experienceToNextLevel) * 100}%`;
   
   return (
-    <div className="h-full w-full flex flex-col items-center justify-between p-4 relative">
+    <div className="w-full flex flex-col items-center p-2 md:p-4 relative">
       {/* Top Stats Bar */}
       <div className="w-full flex justify-between items-center py-2 px-4 bg-indigo-900 rounded-lg text-white shadow-lg mb-4">
         <div className="flex items-center">
@@ -81,9 +81,9 @@ const GameArea = () => {
       </div>
       
       {/* Main Game Area */}
-      <div className="flex-1 w-full flex flex-col md:flex-row items-center justify-between">
+      <div className="flex-1 w-full flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
         {/* Ingredient Containers */}
-        <div className="grid grid-cols-2 md:grid-cols-1 gap-4 w-full md:w-1/4">
+        <div className="grid grid-cols-2 md:grid-cols-1 gap-2 md:gap-3 w-full md:w-1/4">
           <Container type={IngredientType.HERB} />
           <Container type={IngredientType.MINERAL} />
           <Container type={IngredientType.SPIRIT} />
