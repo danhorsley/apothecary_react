@@ -1,0 +1,52 @@
+<svg width="200" height="180" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cauldron legs -->
+  <rect x="40" y="160" width="10" height="20" fill="#333" rx="2" />
+  <rect x="150" y="160" width="10" height="20" fill="#333" rx="2" />
+  
+  <!-- Cauldron base -->
+  <ellipse cx="100" cy="160" rx="70" ry="10" fill="#222" />
+  
+  <!-- Cauldron body -->
+  <path 
+    d="M30,80 C30,40 170,40 170,80 L160,160 C160,160 40,160 40,160 L30,80" 
+    fill="#444"
+    stroke="#222"
+    strokeWidth="4"
+  />
+  
+  <!-- Cauldron top rim -->
+  <ellipse cx="100" cy="80" rx="70" ry="15" fill="#222" />
+  
+  <!-- Cauldron interior -->
+  <ellipse cx="100" cy="80" rx="60" ry="12" fill="#111" />
+  
+  <!-- Potion liquid -->
+  <ellipse 
+    cx="100" 
+    cy="80" 
+    rx="55" 
+    ry="10" 
+    fill="rgba(100,100,255,0.6)"
+  />
+  
+  <!-- Bubbles -->
+  <circle cx="85" cy="75" r="4" fill="rgba(255,255,255,0.7)" />
+  <circle cx="110" cy="78" r="3" fill="rgba(255,255,255,0.7)" />
+  <circle cx="95" cy="72" r="5" fill="rgba(255,255,255,0.7)" />
+  
+  <!-- Handles -->
+  <path 
+    d="M30,90 C10,90 10,120 30,120" 
+    fill="none"
+    stroke="#222"
+    strokeWidth="6"
+    strokeLinecap="round"
+  />
+  <path 
+    d="M170,90 C190,90 190,120 170,120" 
+    fill="none"
+    stroke="#222"
+    strokeWidth="6"
+    strokeLinecap="round"
+  />
+</svg>
