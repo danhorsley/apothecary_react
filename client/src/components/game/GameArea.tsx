@@ -64,20 +64,20 @@ const GameArea = () => {
   const experienceBarWidth = `${(experience / experienceToNextLevel) * 100}%`;
   
   return (
-    <div className="w-full flex flex-col items-center p-2 md:p-4 relative">
+    <div className="w-full flex flex-col items-center p-2 md:p-4 relative min-h-[100svh] max-h-[100svh] overflow-y-auto">
       {/* Top Stats Bar */}
-      <div className="w-full flex justify-between items-center py-2 px-4 bg-indigo-900 rounded-lg text-white shadow-lg mb-4">
+      <div className="w-full flex justify-between items-center py-1 sm:py-2 px-2 sm:px-4 bg-indigo-900 rounded-lg text-white shadow-lg mb-2 sm:mb-4">
         <div className="flex items-center">
-          <span className="text-xl font-bold">Level: {level}</span>
+          <span className="text-sm sm:text-lg md:text-xl font-bold">Lvl {level}</span>
         </div>
-        <div className="w-1/2 h-4 bg-indigo-700 rounded-full overflow-hidden">
+        <div className="w-1/2 h-3 sm:h-4 bg-indigo-700 rounded-full overflow-hidden mx-1 sm:mx-2">
           <div 
             className="h-full bg-yellow-400" 
             style={{ width: experienceBarWidth }}
           ></div>
         </div>
         <div>
-          <span className="text-sm">XP: {experience}/{experienceToNextLevel}</span>
+          <span className="text-xs sm:text-sm">{experience}/{experienceToNextLevel} XP</span>
         </div>
       </div>
       
@@ -97,9 +97,9 @@ const GameArea = () => {
           <Cauldron />
           
           {/* Buttons */}
-          <div className="flex mt-4 space-x-2 md:space-x-4">
+          <div className="flex flex-wrap justify-center mt-3 md:mt-4 gap-2 md:gap-3">
             <motion.button
-              className="px-3 md:px-5 py-2 md:py-3 bg-green-600 text-white rounded-lg shadow-lg font-bold text-sm md:text-base"
+              className="px-2 sm:px-3 md:px-5 py-1.5 sm:py-2 md:py-3 bg-green-600 text-white rounded-lg shadow-lg font-bold text-xs sm:text-sm md:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleTastePotion}
@@ -109,7 +109,7 @@ const GameArea = () => {
             </motion.button>
             
             <motion.button
-              className="px-3 md:px-5 py-2 md:py-3 bg-red-600 text-white rounded-lg shadow-lg font-bold text-sm md:text-base"
+              className="px-2 sm:px-3 md:px-5 py-1.5 sm:py-2 md:py-3 bg-red-600 text-white rounded-lg shadow-lg font-bold text-xs sm:text-sm md:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleResetCauldron}
@@ -118,7 +118,7 @@ const GameArea = () => {
             </motion.button>
             
             <motion.button
-              className="px-3 md:px-5 py-2 md:py-3 bg-amber-600 text-white rounded-lg shadow-lg font-bold text-sm md:text-base"
+              className="px-2 sm:px-3 md:px-5 py-1.5 sm:py-2 md:py-3 bg-amber-600 text-white rounded-lg shadow-lg font-bold text-xs sm:text-sm md:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={toggleNotebook}

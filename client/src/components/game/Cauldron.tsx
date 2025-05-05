@@ -54,10 +54,10 @@ const Cauldron = () => {
         }}
       >
         <svg 
-          width="200" 
-          height="180" 
+          width="160" 
+          height="144" 
           viewBox="0 0 200 180" 
-          className={`${isOver && canDrop ? 'drop-shadow-2xl' : 'drop-shadow-lg'}`}
+          className={`${isOver && canDrop ? 'drop-shadow-2xl' : 'drop-shadow-lg'} sm:w-[180px] sm:h-[162px] md:w-[200px] md:h-[180px]`}
         >
           {/* Cauldron legs */}
           <rect x="40" y="160" width="10" height="20" fill="#333" rx="2" />
@@ -118,20 +118,20 @@ const Cauldron = () => {
         
         {/* Flames */}
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-2">
-          <div className="relative w-40 h-10">
+          <div className="relative w-32 sm:w-36 md:w-40 h-8 sm:h-9 md:h-10">
             <motion.div 
-              className="absolute bottom-0 left-[30%] w-8 h-14 bg-red-500 rounded-t-full"
-              animate={{ height: [14, 18, 14] }}
+              className="absolute bottom-0 left-[30%] w-6 sm:w-7 md:w-8 h-10 sm:h-12 md:h-14 bg-red-500 rounded-t-full"
+              animate={{ height: [10, 14, 10, 14, 10] }}
               transition={{ repeat: Infinity, duration: 0.8 }}
             />
             <motion.div 
-              className="absolute bottom-0 left-[45%] w-10 h-20 bg-orange-500 rounded-t-full"
-              animate={{ height: [20, 25, 20] }}
+              className="absolute bottom-0 left-[45%] w-7 sm:w-8 md:w-10 h-14 sm:h-16 md:h-20 bg-orange-500 rounded-t-full"
+              animate={{ height: [14, 18, 14, 18, 14] }}
               transition={{ repeat: Infinity, duration: 1 }}
             />
             <motion.div 
-              className="absolute bottom-0 left-[60%] w-8 h-14 bg-yellow-500 rounded-t-full"
-              animate={{ height: [14, 16, 14] }}
+              className="absolute bottom-0 left-[60%] w-6 sm:w-7 md:w-8 h-10 sm:h-12 md:h-14 bg-yellow-500 rounded-t-full"
+              animate={{ height: [10, 12, 10] }}
               transition={{ repeat: Infinity, duration: 0.9 }}
             />
           </div>
