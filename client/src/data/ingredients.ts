@@ -51,6 +51,54 @@ export const ingredients: Ingredient[] = [
       effects.sleepiness
     ]
   },
+  {
+    id: 17,
+    name: 'Frostweed',
+    type: IngredientType.HERB,
+    icon: '❄️',
+    color: 'rgba(200, 240, 255, 0.8)',
+    effects: [
+      effects.resistance,
+      effects.slowness,
+      effects.enhancement
+    ]
+  },
+  {
+    id: 18,
+    name: 'Sunpetal',
+    type: IngredientType.HERB,
+    icon: '🌻',
+    color: 'rgba(255, 220, 0, 0.8)',
+    effects: [
+      effects.light,
+      effects.endurance,
+      effects.heatwave
+    ]
+  },
+  {
+    id: 19,
+    name: 'Twilight Sage',
+    type: IngredientType.HERB,
+    icon: '🌿',
+    color: 'rgba(120, 80, 160, 0.8)',
+    effects: [
+      effects.revelation,
+      effects.void,
+      effects.regeneration
+    ]
+  },
+  {
+    id: 20,
+    name: 'Mistfern',
+    type: IngredientType.HERB,
+    icon: '🌫️',
+    color: 'rgba(200, 210, 220, 0.8)',
+    effects: [
+      effects.invisibility,
+      effects.confusion,
+      effects.absorption
+    ]
+  },
   
   // Minerals
   {
@@ -99,6 +147,54 @@ export const ingredients: Ingredient[] = [
       effects.burning,
       effects.explosion,
       effects.heatwave
+    ]
+  },
+  {
+    id: 21,
+    name: 'Crystal Quartz',
+    type: IngredientType.MINERAL,
+    icon: '✨',
+    color: 'rgba(230, 230, 250, 0.8)',
+    effects: [
+      effects.clarity,
+      effects.enhancement,
+      effects.echo
+    ]
+  },
+  {
+    id: 22,
+    name: 'Thunderstone',
+    type: IngredientType.MINERAL,
+    icon: '⚡',
+    color: 'rgba(180, 180, 30, 0.8)',
+    effects: [
+      effects.shock,
+      effects.haste,
+      effects.explosion
+    ]
+  },
+  {
+    id: 23,
+    name: 'Bloodstone',
+    type: IngredientType.MINERAL,
+    icon: '💊',
+    color: 'rgba(180, 20, 40, 0.8)',
+    effects: [
+      effects.strength,
+      effects.regeneration,
+      effects.berserk
+    ]
+  },
+  {
+    id: 24,
+    name: 'Emerald Dust',
+    type: IngredientType.MINERAL,
+    icon: '💸',
+    color: 'rgba(20, 180, 40, 0.8)',
+    effects: [
+      effects.healing,
+      effects.endurance,
+      effects.toxicity
     ]
   },
   
@@ -151,6 +247,54 @@ export const ingredients: Ingredient[] = [
       effects.weakness
     ]
   },
+  {
+    id: 25,
+    name: 'Void Whisper',
+    type: IngredientType.SPIRIT,
+    icon: '🔮',
+    color: 'rgba(60, 20, 90, 0.8)',
+    effects: [
+      effects.void,
+      effects.silence,
+      effects.insight
+    ]
+  },
+  {
+    id: 26,
+    name: 'Frostbite',
+    type: IngredientType.SPIRIT,
+    icon: '❄️',
+    color: 'rgba(200, 230, 255, 0.8)',
+    effects: [
+      effects.paralysis,
+      effects.slowness,
+      effects.resistance
+    ]
+  },
+  {
+    id: 27,
+    name: 'Spectral Flame',
+    type: IngredientType.SPIRIT,
+    icon: '🔥',
+    color: 'rgba(100, 180, 255, 0.8)',
+    effects: [
+      effects.light,
+      effects.levitation,
+      effects.enhancement
+    ]
+  },
+  {
+    id: 28,
+    name: 'Harmony Wisp',
+    type: IngredientType.SPIRIT,
+    icon: '🌊',
+    color: 'rgba(180, 230, 230, 0.8)',
+    effects: [
+      effects.clarity,
+      effects.healing,
+      effects.absorption
+    ]
+  },
   
   // Animal Products
   {
@@ -199,6 +343,54 @@ export const ingredients: Ingredient[] = [
       effects.strength,
       effects.endurance,
       effects.berserk
+    ]
+  },
+  {
+    id: 29,
+    name: 'Owl Feather',
+    type: IngredientType.ANIMAL,
+    icon: '🦉',
+    color: 'rgba(180, 160, 120, 0.8)',
+    effects: [
+      effects.insight,
+      effects.levitation,
+      effects.silence
+    ]
+  },
+  {
+    id: 30,
+    name: 'Frog Tongue',
+    type: IngredientType.ANIMAL,
+    icon: '🐸',
+    color: 'rgba(50, 180, 50, 0.8)',
+    effects: [
+      effects.paralysis,
+      effects.toxicity,
+      effects.haste
+    ]
+  },
+  {
+    id: 31,
+    name: 'Unicorn Hair',
+    type: IngredientType.ANIMAL,
+    icon: '🦄',
+    color: 'rgba(255, 230, 250, 0.8)',
+    effects: [
+      effects.healing,
+      effects.clarity,
+      effects.revelation
+    ]
+  },
+  {
+    id: 32,
+    name: 'Bat Wing',
+    type: IngredientType.ANIMAL,
+    icon: '🦇',
+    color: 'rgba(50, 50, 70, 0.8)',
+    effects: [
+      effects.invisibility,
+      effects.echo,
+      effects.void
     ]
   }
 ];
