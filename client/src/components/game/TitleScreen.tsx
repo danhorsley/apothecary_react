@@ -1,0 +1,123 @@
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { useGame } from '../../lib/stores/useGame';
+import { useAudio } from '../../lib/stores/useAudio';
+
+const TitleScreen = () => {
+  const { start } = useGame();
+  const { playSuccess } = useAudio();
+  const [sparklePosition, setSparklePosition] = useState<{x: number, y: number}[]>([]);
+  
+  // Generate random sparkle positions
+  useEffect(() => {
+    const newSparkles = [];
+    for (let i = 0; i < 30; i++) {
+      newSparkles.push({
+        x: Math.random() * 100,
+        y: 80 + Math.random() * 10 // Position around the title
+      });
+    }
+    setSparklePosition(newSparkles);
+    
+    // Regenerate sparkles every 2 seconds for animation effect
+    const interval = setInterval(() => {
+      const newSparkles = [];
+      for (let i = 0; i < 30; i++) {
+        newSparkles.push({
+          x: Math.random() * 100,
+          y: 80 + Math.random() * 10
+        });
+      }
+      setSparklePosition(newSparkles);
+    }, 2000);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  const handleStart = () => {
+    playSuccess();
+    start();
+  };
+  
+  return (
+    <div className="fixed inset-0 flex flex-col items-center justify-between bg-gray-900">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src="/images/alchemist.png" 
+          alt="Alchemist Background" 
+          className="w-full h-full object-cover opacity-90"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
+      </div>
+      
+      {/* Main Content */}
+      <div className="z-10 flex flex-col items-center justify-between h-full w-full p-8">
+        {/* Top */}
+        <div className="w-full">
+          {/* Optional top content */}
+        </div>
+        
+        {/* Bottom - Title and Button */}
+        <div className="w-full flex flex-col items-center mb-12">
+          {/* Sparkles */}
+          {sparklePosition.map((pos, index) => (
+            <motion.div 
+              key={index}
+              className="absolute w-1 h-1 bg-yellow-300 rounded-full"
+              style={{ 
+                left: `${pos.x}%`, 
+                top: `${pos.y}%`,
+                boxShadow: '0 0 10px 2px rgba(255, 215, 0, 0.7)'
+              }}
+              animate={{
+                scale: [1, 1.5, 1],
+                opacity: [0.7, 1, 0.7]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: Math.random() * 2
+              }}
+            />
+          ))}
+          
+          {/* Title */}
+          <motion.h1 
+            className="text-5xl md:text-7xl font-bold mb-10 text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-300"
+            style={{
+              textShadow: '0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5)',
+              fontFamily: '"Cinzel", serif'
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5, delay: 0.5 }}
+          >
+            APOTHECARY
+          </motion.h1>
+          
+          {/* Start Button */}
+          <motion.button
+            className="px-8 py-3 bg-gradient-to-r from-green-800 to-green-900 text-yellow-300 rounded-lg shadow-lg font-bold text-xl border-2 border-yellow-500/50"
+            style={{
+              boxShadow: '0 0 15px rgba(255, 215, 0, 0.3)'
+            }}
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: '0 0 20px rgba(255, 215, 0, 0.5)'
+            }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleStart}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+          >
+            Begin Your Journey
+          </motion.button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default TitleScreen;

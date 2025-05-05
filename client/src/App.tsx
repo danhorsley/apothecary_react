@@ -5,11 +5,14 @@ import { queryClient } from './lib/queryClient';
 import { Toaster } from 'sonner';
 import { useEffect } from 'react';
 import GameArea from './components/game/GameArea';
+import TitleScreen from './components/game/TitleScreen';
 import { useAudio } from './lib/stores/useAudio';
+import { useGame } from './lib/stores/useGame';
 
 function App() {
-  // Initialize audio
+  // Initialize audio and game state
   const { setBackgroundMusic, setHitSound, setSuccessSound } = useAudio();
+  const { phase } = useGame();
   
   useEffect(() => {
     // Set up background music
@@ -41,8 +44,14 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <DndProvider backend={HTML5Backend}>
-        <div className="min-h-screen w-screen overflow-auto bg-indigo-50 font-sans">
-          <GameArea />
+        <div className="min-h-screen w-screen overflow-hidden font-sans">
+          {phase === 'ready' ? (
+            <TitleScreen />
+          ) : (
+            <div className="bg-indigo-50">
+              <GameArea />
+            </div>
+          )}
           <Toaster position="top-center" />
         </div>
       </DndProvider>
