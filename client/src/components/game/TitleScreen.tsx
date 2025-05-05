@@ -49,9 +49,9 @@ const TitleScreen = () => {
     <div className="fixed inset-0 flex flex-col items-center justify-between bg-gray-900">
       {/* Background Image */}
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-emerald-900 to-gray-900">
-        {/* Gradient background instead of image */}
-        <div className="absolute inset-0 bg-[url('/images/alchemist.png')] bg-center bg-cover bg-no-repeat opacity-60"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
+        {/* Background image */}
+        <div className="absolute inset-0 bg-[url('/images/alchemist.png')] bg-center bg-cover bg-no-repeat opacity-90"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-50"></div>
       </div>
       
       {/* Main Content */}
@@ -89,10 +89,11 @@ const TitleScreen = () => {
           
           {/* Title */}
           <motion.h1 
-            className="text-6xl md:text-8xl font-bold mb-10 text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-300"
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-10 text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-300"
             style={{
               textShadow: '0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3)',
-              fontFamily: '"Cinzel", serif'
+              fontFamily: '"Cinzel", serif',
+              letterSpacing: '-0.05em'
             }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ 
