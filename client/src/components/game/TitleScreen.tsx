@@ -50,8 +50,8 @@ const TitleScreen = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="./images/alchemist.png" 
-          alt="Alchemist Background" 
+          src="/images/alchemist.png" 
+          alt="AlchemistBackground" 
           className="w-full h-full object-cover opacity-90"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
