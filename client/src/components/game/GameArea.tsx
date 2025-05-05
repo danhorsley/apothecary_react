@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Cauldron from './Cauldron';
 import TabContainer from './TabContainer';
 import Notebook from './Notebook';
 import ResultDisplay from './ResultDisplay';
+import StatChangeIndicator from './StatChangeIndicator';
 import { useAlchemy } from '../../lib/stores/useAlchemy';
 import { toast } from 'sonner';
 import { useAudio } from '../../lib/stores/useAudio';
@@ -21,12 +22,43 @@ const GameArea = () => {
     level,
     experience,
     experienceToNextLevel,
+    health,
+    maxHealth,
     getMaxIngredientsAllowed
   } = useAlchemy();
   
   const [isNotebookOpen, setIsNotebookOpen] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [potionResults, setPotionResults] = useState<string[]>([]);
+  
+  // Track previous state values for change indicators
+  const prevExperienceRef = useRef(experience);
+  const prevHealthRef = useRef(health);
+  const [healthChange, setHealthChange] = useState<number | null>(null);
+  const [xpChange, setXpChange] = useState<number | null>(null);
+  
+  // Monitor for health and experience changes
+  useEffect(() => {
+    const experienceDiff = experience - prevExperienceRef.current;
+    if (experienceDiff !== 0) {
+      setXpChange(experienceDiff);
+      // Reset the change indicator after a delay
+      const timer = setTimeout(() => setXpChange(null), 2000);
+      return () => clearTimeout(timer);
+    }
+    prevExperienceRef.current = experience;
+  }, [experience]);
+  
+  useEffect(() => {
+    const healthDiff = health - prevHealthRef.current;
+    if (healthDiff !== 0) {
+      setHealthChange(healthDiff);
+      // Reset the change indicator after a delay
+      const timer = setTimeout(() => setHealthChange(null), 2000);
+      return () => clearTimeout(timer);
+    }
+    prevHealthRef.current = health;
+  }, [health]);
   
   // Handle tasting the potion
   const handleTastePotion = () => {
@@ -66,18 +98,55 @@ const GameArea = () => {
   return (
     <div className="w-full flex flex-col items-center p-2 md:p-4 relative min-h-[100svh] max-h-[100svh] overflow-y-auto">
       {/* Top Stats Bar */}
-      <div className="w-full flex justify-between items-center py-1 sm:py-2 px-2 sm:px-4 bg-indigo-900 rounded-lg text-white shadow-lg mb-2 sm:mb-4">
-        <div className="flex items-center">
-          <span className="text-sm sm:text-lg md:text-xl font-bold">Lvl {level}</span>
+      <div className="w-full flex flex-col py-1 sm:py-2 px-2 sm:px-4 bg-indigo-900 rounded-lg text-white shadow-lg mb-2 sm:mb-4">
+        {/* XP Row */}
+        <div className="w-full flex justify-between items-center relative">
+          <div className="flex items-center">
+            <span className="text-sm sm:text-lg md:text-xl font-bold">Lvl {level}</span>
+          </div>
+          <div className="w-1/2 h-3 sm:h-4 bg-indigo-700 rounded-full overflow-hidden mx-1 sm:mx-2">
+            <motion.div 
+              className="h-full bg-yellow-400" 
+              style={{ width: experienceBarWidth }}
+              initial={{ width: experienceBarWidth }}
+              animate={{ width: experienceBarWidth }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              key={experience} // This forces a re-render when experience changes
+            ></motion.div>
+          </div>
+          <div>
+            <span className="text-xs sm:text-sm">{experience}/{experienceToNextLevel} XP</span>
+          </div>
+          
+          {/* XP Change Indicator */}
+          {xpChange && xpChange !== 0 && (
+            <StatChangeIndicator value={xpChange} position="xp" />
+          )}
         </div>
-        <div className="w-1/2 h-3 sm:h-4 bg-indigo-700 rounded-full overflow-hidden mx-1 sm:mx-2">
-          <div 
-            className="h-full bg-yellow-400" 
-            style={{ width: experienceBarWidth }}
-          ></div>
-        </div>
-        <div>
-          <span className="text-xs sm:text-sm">{experience}/{experienceToNextLevel} XP</span>
+        
+        {/* Health Row */}
+        <div className="w-full flex justify-between items-center mt-1 sm:mt-2 relative">
+          <div className="flex items-center">
+            <span className="text-sm sm:text-base font-bold">HP</span>
+          </div>
+          <div className="w-1/2 h-3 sm:h-4 bg-red-900 rounded-full overflow-hidden mx-1 sm:mx-2">
+            <motion.div 
+              className="h-full bg-gradient-to-r from-red-500 to-red-400" 
+              style={{ width: `${(health / maxHealth) * 100}%` }}
+              initial={{ width: `${(health / maxHealth) * 100}%` }}
+              animate={{ width: `${(health / maxHealth) * 100}%` }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              key={health} // This forces a re-render when health changes
+            ></motion.div>
+          </div>
+          <div>
+            <span className="text-xs sm:text-sm">{health}/{maxHealth} HP</span>
+          </div>
+          
+          {/* Health Change Indicator */}
+          {healthChange && healthChange !== 0 && (
+            <StatChangeIndicator value={healthChange} position="health" />
+          )}
         </div>
       </div>
       
