@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Cauldron from './Cauldron';
-import Container from './Container';
+import TabContainer from './TabContainer';
 import Notebook from './Notebook';
 import ResultDisplay from './ResultDisplay';
 import { useAlchemy } from '../../lib/stores/useAlchemy';
@@ -82,24 +82,24 @@ const GameArea = () => {
       </div>
       
       {/* Main Game Area */}
-      <div className="flex-1 w-full flex flex-col items-center justify-between space-y-4">
-        {/* Top row - 2 ingredients */}
-        <div className="w-full grid grid-cols-2 gap-2">
-          <Container type={IngredientType.HERB} />
-          <Container type={IngredientType.MINERAL} />
+      <div className="flex-1 w-full flex flex-col md:flex-row gap-4">
+        {/* Left side - Ingredients */}
+        <div className="w-full md:w-1/2 flex flex-col">
+          <TabContainer types={[IngredientType.HERB, IngredientType.MINERAL, IngredientType.SPIRIT, IngredientType.ANIMAL]} />
         </div>
         
-        {/* Middle row - Cauldron and buttons */}
-        <div className="w-full flex flex-col items-center relative mb-2">
+        {/* Right side - Cauldron and controls */}
+        <div className="w-full md:w-1/2 flex flex-col items-center relative">
           <div className="text-center mb-2 text-sm font-medium bg-indigo-100 px-3 py-1 rounded-full">
             Ingredients: {currentIngredients.length}/{getMaxIngredientsAllowed()}
           </div>
+          
           <Cauldron />
           
           {/* Buttons */}
-          <div className="flex mt-4 space-x-4">
+          <div className="flex mt-4 space-x-2 md:space-x-4">
             <motion.button
-              className="px-6 py-3 bg-green-600 text-white rounded-lg shadow-lg font-bold"
+              className="px-3 md:px-5 py-2 md:py-3 bg-green-600 text-white rounded-lg shadow-lg font-bold text-sm md:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleTastePotion}
@@ -109,41 +109,32 @@ const GameArea = () => {
             </motion.button>
             
             <motion.button
-              className="px-6 py-3 bg-red-600 text-white rounded-lg shadow-lg font-bold"
+              className="px-3 md:px-5 py-2 md:py-3 bg-red-600 text-white rounded-lg shadow-lg font-bold text-sm md:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleResetCauldron}
             >
-              Reset Cauldron
+              Reset
+            </motion.button>
+            
+            <motion.button
+              className="px-3 md:px-5 py-2 md:py-3 bg-amber-600 text-white rounded-lg shadow-lg font-bold text-sm md:text-base"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={toggleNotebook}
+            >
+              {isNotebookOpen ? 'Close' : 'Notebook'}
             </motion.button>
           </div>
           
           {/* Current Potion Info */}
           {currentPotion && (
-            <div className="mt-4 p-2 bg-indigo-100 rounded-lg border-2 border-indigo-300">
+            <div className="mt-4 p-2 bg-indigo-100 rounded-lg border-2 border-indigo-300 w-full max-w-md">
               <p className="text-center font-medium">
                 Current Mix: {currentIngredients.map(i => i.name).join(", ")}
               </p>
             </div>
           )}
-        </div>
-        
-        {/* Bottom row - 2 ingredients and notebook */}
-        <div className="w-full grid grid-cols-2 gap-2">
-          <Container type={IngredientType.SPIRIT} />
-          <Container type={IngredientType.ANIMAL} />
-        </div>
-        
-        {/* Notebook Toggle */}
-        <div className="w-full flex justify-center mt-2">
-          <motion.button
-            className="px-6 py-3 bg-amber-600 text-white rounded-lg shadow-lg font-bold"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={toggleNotebook}
-          >
-            {isNotebookOpen ? 'Close Notebook' : 'Open Notebook'}
-          </motion.button>
         </div>
       </div>
       

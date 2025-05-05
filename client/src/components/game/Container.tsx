@@ -6,9 +6,10 @@ import { Ingredient, IngredientType } from '../../types/alchemy';
 
 interface ContainerProps {
   type: IngredientType;
+  className?: string;
 }
 
-const Container = ({ type }: ContainerProps) => {
+const Container = ({ type, className = '' }: ContainerProps) => {
   const { getIngredientsByType } = useAlchemy();
   
   // Get ingredients of this type
@@ -59,7 +60,7 @@ const Container = ({ type }: ContainerProps) => {
   
   return (
     <motion.div
-      className={`rounded-lg ${containerProps.color} ${containerProps.border} border-2 p-2 shadow-md`}
+      className={`rounded-lg ${containerProps.color} ${containerProps.border} border-2 p-2 shadow-md ${className}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
