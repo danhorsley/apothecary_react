@@ -48,12 +48,9 @@ const TitleScreen = () => {
   return (
     <div className="fixed inset-0 flex flex-col items-center justify-between bg-gray-900">
       {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="/images/alchemist.png" 
-          alt="AlchemistBackground" 
-          className="w-full h-full object-cover opacity-90"
-        />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-emerald-900 to-gray-900">
+        {/* Gradient background instead of image */}
+        <div className="absolute inset-0 bg-[url('/images/alchemist.png')] bg-center bg-cover bg-no-repeat opacity-60"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
       </div>
       
