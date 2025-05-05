@@ -34,6 +34,7 @@ interface AlchemyState {
   isIngredientDiscovered: (ingredientId: number, effectId: number) => boolean;
   getDiscoveriesForIngredient: (ingredientId: number) => number[];
   getDiscoveredEffects: () => DiscoveredEffect[];
+  getMaxIngredientsAllowed: () => number;
   
   // Methods - Actions
   addIngredient: (ingredient: Ingredient) => void;
@@ -94,11 +95,27 @@ export const useAlchemy = create<AlchemyState>()(
         return get().discoveredEffects;
       },
       
+      // Calculate max ingredients allowed based on level
+      getMaxIngredientsAllowed: () => {
+        const level = get().level;
+        // Start with 3 ingredients at level 1, max out at 7 ingredients at level 5
+        return Math.min(3 + Math.floor(level / 2), 7);
+      },
+      
       // Add an ingredient to the cauldron
       addIngredient: (ingredient: Ingredient) => {
-        set(state => ({
-          currentIngredients: [...state.currentIngredients, ingredient]
-        }));
+        const maxIngredients = get().getMaxIngredientsAllowed();
+        
+        set(state => {
+          if (state.currentIngredients.length >= maxIngredients) {
+            // Show a toast or alert that max ingredients reached
+            setTimeout(() => {
+              alert(`You can only use ${maxIngredients} ingredients at level ${state.level}!`);
+            }, 100);
+            return { currentIngredients: state.currentIngredients };
+          }
+          return { currentIngredients: [...state.currentIngredients, ingredient] };
+        });
       },
       
       // Reset the cauldron
@@ -297,6 +314,7 @@ export const useAlchemy = create<AlchemyState>()(
           0
         );
       }
+      
     }),
     {
       name: 'alchemy-game-storage',

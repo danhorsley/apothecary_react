@@ -20,7 +20,8 @@ const GameArea = () => {
     resetGame,
     level,
     experience,
-    experienceToNextLevel
+    experienceToNextLevel,
+    getMaxIngredientsAllowed
   } = useAlchemy();
   
   const [isNotebookOpen, setIsNotebookOpen] = useState(false);
@@ -81,17 +82,18 @@ const GameArea = () => {
       </div>
       
       {/* Main Game Area */}
-      <div className="flex-1 w-full flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-        {/* Ingredient Containers */}
-        <div className="grid grid-cols-2 md:grid-cols-1 gap-2 md:gap-3 w-full md:w-1/4">
+      <div className="flex-1 w-full flex flex-col items-center justify-between space-y-4">
+        {/* Top row - 2 ingredients */}
+        <div className="w-full grid grid-cols-2 gap-2">
           <Container type={IngredientType.HERB} />
           <Container type={IngredientType.MINERAL} />
-          <Container type={IngredientType.SPIRIT} />
-          <Container type={IngredientType.ANIMAL} />
         </div>
         
-        {/* Cauldron Area */}
-        <div className="flex-1 flex flex-col items-center justify-center relative my-4 md:my-0">
+        {/* Middle row - Cauldron and buttons */}
+        <div className="w-full flex flex-col items-center relative mb-2">
+          <div className="text-center mb-2 text-sm font-medium bg-indigo-100 px-3 py-1 rounded-full">
+            Ingredients: {currentIngredients.length}/{getMaxIngredientsAllowed()}
+          </div>
           <Cauldron />
           
           {/* Buttons */}
@@ -126,8 +128,14 @@ const GameArea = () => {
           )}
         </div>
         
+        {/* Bottom row - 2 ingredients and notebook */}
+        <div className="w-full grid grid-cols-2 gap-2">
+          <Container type={IngredientType.SPIRIT} />
+          <Container type={IngredientType.ANIMAL} />
+        </div>
+        
         {/* Notebook Toggle */}
-        <div className="w-full md:w-1/4 flex justify-center">
+        <div className="w-full flex justify-center mt-2">
           <motion.button
             className="px-6 py-3 bg-amber-600 text-white rounded-lg shadow-lg font-bold"
             whileHover={{ scale: 1.05 }}
