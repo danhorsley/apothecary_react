@@ -6,30 +6,36 @@ import { useAudio } from '../../lib/stores/useAudio';
 const TitleScreen = () => {
   const { start } = useGame();
   const { playSuccess } = useAudio();
-  const [sparklePosition, setSparklePosition] = useState<{x: number, y: number}[]>([]);
+  const [sparklePosition, setSparklePosition] = useState<{x: number, y: number, size?: number}[]>([]);
   
   // Generate random sparkle positions
   useEffect(() => {
     const newSparkles = [];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 50; i++) {
+      // Distribute sparkles around the title and throughout the screen
+      const isAroundTitle = Math.random() > 0.4; // 60% chance to be around title
+      
       newSparkles.push({
         x: Math.random() * 100,
-        y: 80 + Math.random() * 10 // Position around the title
+        y: isAroundTitle ? (80 + Math.random() * 10) : (Math.random() * 100),
+        size: Math.random() * 0.5 + 0.5 // Random size between 0.5 and 1
       });
     }
     setSparklePosition(newSparkles);
     
-    // Regenerate sparkles every 2 seconds for animation effect
+    // Regenerate sparkles every 1.5 seconds for animation effect
     const interval = setInterval(() => {
       const newSparkles = [];
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 50; i++) {
+        const isAroundTitle = Math.random() > 0.4;
         newSparkles.push({
           x: Math.random() * 100,
-          y: 80 + Math.random() * 10
+          y: isAroundTitle ? (80 + Math.random() * 10) : (Math.random() * 100),
+          size: Math.random() * 0.5 + 0.5
         });
       }
       setSparklePosition(newSparkles);
-    }, 2000);
+    }, 1500);
     
     return () => clearInterval(interval);
   }, []);
@@ -44,7 +50,7 @@ const TitleScreen = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="/images/alchemist.png" 
+          src="./images/alchemist.png" 
           alt="Alchemist Background" 
           className="w-full h-full object-cover opacity-90"
         />
@@ -64,18 +70,20 @@ const TitleScreen = () => {
           {sparklePosition.map((pos, index) => (
             <motion.div 
               key={index}
-              className="absolute w-1 h-1 bg-yellow-300 rounded-full"
+              className="absolute bg-yellow-300 rounded-full"
               style={{ 
                 left: `${pos.x}%`, 
                 top: `${pos.y}%`,
-                boxShadow: '0 0 10px 2px rgba(255, 215, 0, 0.7)'
+                width: `${pos.size || 1}px`,
+                height: `${pos.size || 1}px`,
+                boxShadow: `0 0 ${5 + (pos.size || 1) * 5}px ${1 + (pos.size || 1)}px rgba(255, 215, 0, 0.7)`
               }}
               animate={{
                 scale: [1, 1.5, 1],
                 opacity: [0.7, 1, 0.7]
               }}
               transition={{
-                duration: 2,
+                duration: 1.5 + Math.random(),
                 repeat: Infinity,
                 delay: Math.random() * 2
               }}
@@ -84,14 +92,30 @@ const TitleScreen = () => {
           
           {/* Title */}
           <motion.h1 
-            className="text-5xl md:text-7xl font-bold mb-10 text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-300"
+            className="text-6xl md:text-8xl font-bold mb-10 text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-300"
             style={{
-              textShadow: '0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5)',
+              textShadow: '0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3)',
               fontFamily: '"Cinzel", serif'
             }}
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.5, delay: 0.5 }}
+            animate={{ 
+              opacity: 1, 
+              y: 0,
+              textShadow: [
+                '0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3)',
+                '0 0 15px rgba(255, 215, 0, 0.9), 0 0 25px rgba(255, 215, 0, 0.7), 0 0 35px rgba(255, 215, 0, 0.5)',
+                '0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3)'
+              ]
+            }}
+            transition={{ 
+              duration: 1.5, 
+              delay: 0.5,
+              textShadow: {
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }
+            }}
           >
             APOTHECARY
           </motion.h1>
